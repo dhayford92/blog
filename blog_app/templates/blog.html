@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+    <!--================Blog Categorie Area =================-->
+    <section class="blog_categorie_area section_gap_top">
+        <div class="container">
+            <div class="row">
+                {% for category in main_category.all %}
+                <div class="col-lg-4">
+                    <div class="categories_post">
+                        <img src="{{ category.image.url }}" alt="post" height="200">
+                        <div class="categories_details">
+                            <div class="categories_text">
+                                <a href="single-blog.html"><h5>{{ category.name }}</h5></a>
+                                <div class="border_line"></div>
+                                <p>{{ category.info }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!--================Blog Categorie Area =================-->
+    <section class="blog_area">
+        <div class="container">
+            <div class="row">
+            {% if posts %}
+                <div class="col-lg-8">
+                    <div class="blog_left_sidebar">
+                        {% for post in posts %}
+                            <article class="row blog_item">
+                            <div class="col-md-3">
+                                <div class="blog_info text-right">
+                                    <div class="post_tag">
+                                        <a class="active" href="#">{{ post.main_category }}, </a>
+                                        <a href="#">{{ post.sub_category }}</a>
+                                    </div>
+                                    <ul class="blog_meta list">
+                                        <li><a href="#">{{ post.first_name }}<i class="lnr lnr-user"></i></a></li>
+                                        <li><a href="#">{{ post.created_on.date }}<i class="lnr lnr-calendar-full"></i></a></li>
+                                        <li><a href="#">1.2M likes<i class="lnr lnr-heart"></i></a></li>
+                                        <li><a href="{% url 'detail' posk.pk %}">{{ post.total_comments }} Comments<i class="lnr lnr-bubble"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="blog_post">
+                                    <img src="{{ post.image.url }}" alt="">
+                                    <div class="blog_details">
+                                        <a href="single-blog.html"><h2>{{ post.title }}</h2></a>
+                                        <p>{{ post.description }}</p>
+                                        <a href="{% url 'detail' post.pk %}" class="primary_btn"><span>View More</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                        <nav class="blog-pagination justify-content-center d-flex">
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a href="?page=1" class="page-link" aria-label="Previous">
+                                        <span aria-hidden="true">
+                                            <span class="lnr lnr-chevron-left"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="page-item "><a href="?page={{ page_obj.previous_page_number }}" class="page-link">previous</a></li>
+                                {% endif %}
+                                <li class="page-item active">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
+                                {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a href="?page={{ page_obj.next_page_number }}" class="page-link" aria-label="Next">
+                                        <span aria-hidden="true">
+                                            <span class="lnr lnr-chevron-right"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-log-8">
+                    <div class="blog_left_sidebar">
+                        <h3 class="card-title">No result</h3>
+                        <p class="card-text"> Sorry there's no result for: "{{ query }}" here</p>
+                    </div>
+                    <a href="/" class="primary_btn">Back</a>
+                </div>
+            {% endif %}
+                {% include "side-info.html" %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

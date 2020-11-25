@@ -1,0 +1,107 @@
+{% load static %}
+<div class="col-lg-4">
+    <div class="blog_right_sidebar">
+        <aside class="single_sidebar_widget search_widget">
+            <form method="get">
+            <div class="input-group">
+                <input type="text" class="form-control" id="id_q" placeholder="Search Posts" name="q">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="lnr lnr-magnifier"></i></button>
+                </span>
+            </div><!-- /input-group -->
+            </form>
+            <div class="br"></div>
+        </aside>
+        <aside class="single_sidebar_widget author_widget">
+            <img class="author_img rounded-circle" src="{% static 'img/blog/author.png' %}" alt="">
+            <h4>Denzel Hayford</h4>
+            <p>Senior blog writer</p>
+            <div class="social_icon">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-github"></i></a>
+                <a href="#"><i class="fa fa-behance"></i></a>
+            </div>
+            <p>This is my personal blog created with python and django framework </p>
+            <div class="br"></div>
+        </aside>
+        <aside class="single_sidebar_widget popular_post_widget">
+            <h3 class="widget_title">Popular Posts</h3>
+            {% for post in posts|slice:':4' %}
+            <div class="media post_item">
+                <img src="{{ post.image.url }}" alt="post" height="50">
+                <div class="media-body">
+                    <a href="single-blog.html"><h3>{{ post.title }}</h3></a>
+                    <p>{{ post.created_on }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="br"></div>
+        </aside>
+        <aside class="single_sidebar_widget ads_widget">
+            <a href="#"><img class="img-fluid" src="{% static 'img/blog/add.jpg' %}" alt=""></a>
+            <div class="br"></div>
+        </aside>
+        <aside class="single_sidebar_widget post_category_widget">
+            <h4 class="widget_title">Post Catgories</h4>
+            <ul class="list cat-list">
+                {% for category in main_category.all %}
+                <li>
+                    <a href="#" class="d-flex justify-content-between">
+                        <p>{{ category.name }}</p>
+                        <p>11</p>
+                    </a>
+                </li>
+                {% endfor %}
+                {% for category in sub_category.all %}
+                <li>
+                    <a href="#" class="d-flex justify-content-between">
+                        <p>{{ category.name }}</p>
+                        <p>11</p>
+                    </a>
+                </li>
+                {% endfor %}
+
+            </ul>
+            <div class="br"></div>
+        </aside>
+        <aside class="single-sidebar-widget newsletter_widget">
+            <h4 class="widget_title">Newsletter</h4>
+            <p>
+            Here, I focus on a range of items and features that we use in life without
+            giving them a second thought.
+            </p>
+            <div class="form-group d-flex flex-row">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                    </div>
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'">
+                </div>
+                <a href="#" class="bbtns">Subcribe</a>
+            </div>
+            <p class="text-bottom">You can unsubscribe at any time</p>
+            <div class="br"></div>
+        </aside>
+        <aside class="single-sidebar-widget tag_cloud_widget">
+            <h4 class="widget_title">Tag Clouds</h4>
+            <ul class="list">
+                <li><a href="#">Technology</a></li>
+                <li><a href="#">Fashion</a></li>
+                <li><a href="#">Architecture</a></li>
+                <li><a href="#">Fashion</a></li>
+                <li><a href="#">Food</a></li>
+                <li><a href="#">Technology</a></li>
+                <li><a href="#">Lifestyle</a></li>
+                <li><a href="#">Art</a></li>
+                <li><a href="#">Adventure</a></li>
+                <li><a href="#">Food</a></li>
+                <li><a href="#">Lifestyle</a></li>
+                <li><a href="#">Adventure</a></li>
+            </ul>
+        </aside>
+    </div>
+</div>
+<script type="text/javascript">
+    document.getElementById("id_q").value = "{{ query }}"
+</script>
